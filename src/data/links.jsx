@@ -62,7 +62,7 @@ export const Form = [
     text: "City",
   },
   {
-    type: "text",
+    type: "number",
     icon: { icon: Bs123 },
     text: "Zip Code",
   },

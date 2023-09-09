@@ -1,12 +1,16 @@
 import { Form } from "#/data/links";
 //BUILDER
 import Input from "#/components/build/input";
-import Typo from "../components/build/global/typography";
+import Typo from "#/components/build/global/typography";
+import Dropdown from "#/components/build/dropdown";
 // REACT
 import { useRef, useState } from "react";
 // REDUX
 import { store } from "#/reducers/store";
 import { postUser } from '#/actions/user_action'
+//DATA
+import Departments from '../data/Departments.json'
+import States from '../data/States.json'
 //
 //
 //
@@ -15,48 +19,52 @@ export default function Home() {
 //
 // VARIABLE
 //
-const [dateOfBirth, setDateOfBirth] = useState("");
-const [selectedDate, setSelectedDate] = useState(null);
-const form = useRef();
-const formDataKeys = [
-  'firstName',
-  'lastName',
-  'dateOfBirth',
-  'startDate',
-  'department',
-  'street',
-  'city',
-  'zipCode',
-  'state',
-];
+const [formData, setFormData] = useState("");
+//
+//
+//
+const handleChange = (fieldName, newValue) => {
+  const updatedFormData = { ...formData };
+  updatedFormData[fieldName] = newValue;
+  setFormData(updatedFormData);
+};
+//
+const handleSubmit = (e) =>{
+//  
+  e.preventDefault();
+//  
+//
+console.log(formData)
+store.dispatch(postUser(formData));
+}
 //
 // BUILDER
 //
 const formulaire1 = Form.slice(0, 5).map((item, index)=>(
-  <Input key={index} type={item.type} icon={item.icon} text={item.text} />
+  <>
+  {item.text == "Department" ? (
+    <Dropdown key={index} icon={item.icon} text={item.text} list={Departments} fonction={handleChange} />
+  ) : (
+    <Input key={index} type={item.type} icon={item.icon} text={item.text} fonction={handleChange} />
+  )
+  }
+  </>
 ));
 const formulaire2 = Form.slice(5, 10).map((item, index)=>(
-    <Input key={index} type={item.type} icon={item.icon} text={item.text} />
+  <>
+  {item.text == "State" ? (
+    <Dropdown key={index} icon={item.icon} text={item.text} list={States} fonction={handleChange}/>
+  ) : (
+    <Input key={index} type={item.type} icon={item.icon} text={item.text} fonction={handleChange}/>
+  )
+  }
+  </>
 ));
-//
-//
-//
-const handdata = (e) =>{
-//  
-  e.preventDefault();
-//  
-const dataForm = formDataKeys.reduce((formData, key, index) => {
-  formData[key] = form.current[index].value;
-  return formData;
-}, {});
-//
-store.dispatch(postUser(dataForm));
-}
 //
 //
     return (
 <main className="home">
-<form onSubmit={handdata} ref={form}>
+<form onSubmit={handleSubmit}>
 <Typo
   balise="div"
   color="cb"
@@ -85,12 +93,11 @@ store.dispatch(postUser(dataForm));
   className="titleInput"
   transform="maj"
   />
-{formulaire2}  
+{formulaire2}
 </div>
 </section>
 <input type="submit" value="Save" className="submitForm maj size-typo5"/>
 </form>
-
 </main>
     );
 }
