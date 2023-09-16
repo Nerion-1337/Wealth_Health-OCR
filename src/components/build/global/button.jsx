@@ -127,7 +127,7 @@ export default function Button({
                 <>
                   {item_i && children ? (
                     <>
-                      <i /> <span>{children}</span>
+                      <i className="i_left"/> <span>{children}</span><i className="i_right"/>
                     </>
                   ) : (
                     <>{children}</>

@@ -74,7 +74,7 @@ border-right: 2px solid $c1;
 padding-right: clamp(4px, calc((8 / $width) * 100vw), 8px);
 }
 
-.rdrCalendarWrapper{
+.calendar{
   position: absolute;
   display: none;
   border: 2px solid $c2;
@@ -82,7 +82,8 @@ padding-right: clamp(4px, calc((8 / $width) * 100vw), 8px);
   z-index: 100;
 }
 
-.inputBox.active + .rdrCalendarWrapper{
+.inputBox.active + .calendar
+{
   display: block;
 }
 //
@@ -177,9 +178,14 @@ padding-right: clamp(4px, calc((8 / $width) * 100vw), 8px);
   z-index: 100;
   cursor: pointer;
 }
-  
-  
-
+.dorpdownBox .dropdownMenu li{
+  width: 100%;
+  line-height: clamp(11px, calc((30 / $width) * 100vw), 30px);
+  &:hover{
+    background: $c1;
+    color: white;
+  }
+}
 //
 //
 // HEADER
@@ -236,6 +242,23 @@ footer{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.home form .titleForm{
+  font-weight: 900;
+  position: relative;
+  display: flex;
+  justify-content: center;  
+}
+
+.home form .titleForm::before{
+  content: " ";
+  position: absolute;
+  height: 90%;
+  width: 80%;
+  border-bottom: 3px solid $c1;
+  border-radius: 10%;
+  
+}
+
 .home form section{
   @extend %center;
   gap: clamp(25px, calc((50 / $width) * 100vw), 50px);;
@@ -270,20 +293,134 @@ footer{
     background: $c1;
 }
 }
+//
+//
+// EMPLOYEE
+//
+//
+.employee{
+  max-width: $width + px;
+  width: 100vw;
+  height: clamp(325px, calc((750 / $width) * 100vw), 750px);
+  @extend %center;
+}
 
-.home form .titleForm{
+.employee section{
+  width: 90%;
+  @extend %center;
+  flex-direction: column;
+}
+
+
+.employee section .titleEmployee{
   font-weight: 900;
   position: relative;
   display: flex;
   justify-content: center;  
 }
 
-.home form .titleForm::before{
+.employee section .titleEmployee::before{
   content: " ";
   position: absolute;
   height: 90%;
   width: 80%;
   border-bottom: 3px solid $c1;
   border-radius: 10%;
-  
 }
+
+.employee section .filter{
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+.employee section table{
+  width: 100%;
+  height: clamp(325px, calc((500 / $width) * 100vw), 500px);
+  margin-top: clamp(15px, calc((30 / $width) * 100vw), 30px);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  }
+
+.employee section table thead tr{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: clamp(2.5px, calc((5 / $width) * 100vw), 5px);
+  padding-bottom: clamp(5px, calc((10 / $width) * 100vw), 10px);
+  border-bottom: 2px solid $c2;  
+  }
+
+.employee section table thead tr th{
+  width: 10%;
+  @extend %center;
+
+  }
+
+.employee section table thead tr th:nth-child(5),
+.employee section table thead tr th:nth-child(6)
+{
+  width: 17%;
+  @extend %center;
+  }
+
+.employee section table thead tr th:nth-child(7),
+.employee section table thead tr th:nth-child(9),
+.employee section table thead tr th:nth-child(9)
+{
+  width: 8%;
+  @extend %center;
+  }
+
+.employee section table tbody{
+overflow: scroll;
+border-bottom: 2px solid $c2;
+  }  
+
+.employee section table tbody tr{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: clamp(5px, calc((10 / $width) * 100vw), 10px);
+  padding-bottom: clamp(5px, calc((10 / $width) * 100vw), 10px);
+  border-bottom: 1px solid $c2;
+  &:hover{
+    background: $c1;
+    color: white;
+  }
+  }
+
+.employee section table tbody tr th{
+  width: 10%;
+  @extend %center;
+  }
+
+.employee section table tbody tr th:nth-child(5),
+.employee section table tbody tr th:nth-child(6)
+{
+  width: 17%;
+  @extend %center;
+  }
+
+.employee section table tbody tr th:nth-child(7),
+.employee section table tbody tr th:nth-child(9),
+.employee section table tbody tr th:nth-child(9)
+{
+  width: 8%;
+  @extend %center;
+  }
+
+
+.employee section .paginate{
+  height: clamp(7.5px, calc((35 / $width) * 100vw), 35px);
+  margin-top: clamp(7.5px, calc((15 / $width) * 100vw), 15px);
+  display: flex;
+  gap: clamp(5px, calc((15 / $width) * 100vw), 15px);
+  @extend %center;  
+}
+
+.employee section .paginate span{
+  cursor: pointer;
+}
+

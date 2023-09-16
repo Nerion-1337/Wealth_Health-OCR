@@ -1,41 +1,40 @@
-import { Form } from "#/data/links";
+//DATA
+import { Form, Departments, States } from "#/data/links";
 //BUILDER
 import Input from "#/components/build/input";
 import Typo from "#/components/build/global/typography";
 import Dropdown from "#/components/build/dropdown";
 // REACT
-import { useRef, useState } from "react";
+import { useState } from "react";
 // REDUX
 import { store } from "#/reducers/store";
-import { postUser } from '#/actions/user_action'
-//DATA
-import Departments from '../data/Departments.json'
-import States from '../data/States.json'
+import { postUser, getUser } from '#/actions/user_action'
 //
 //
 //
-
 export default function Home() {
 //
 // VARIABLE
 //
 const [formData, setFormData] = useState("");
 //
-//
+// FONCTION
 //
 const handleChange = (fieldName, newValue) => {
   const updatedFormData = { ...formData };
   updatedFormData[fieldName] = newValue;
   setFormData(updatedFormData);
 };
+// Met à jour le store management
+function getUserReducerState() {
+  const state = store.getState();
+  return state.userReducer;
+}
 //
 const handleSubmit = (e) =>{
-//  
   e.preventDefault();
-//  
-//
-console.log(formData)
 store.dispatch(postUser(formData));
+store.dispatch(getUser(getUserReducerState())); 
 }
 //
 // BUILDER
@@ -50,7 +49,7 @@ const formulaire1 = Form.slice(0, 5).map((item, index)=>(
   }
   </>
 ));
-const formulaire2 = Form.slice(5, 10).map((item, index)=>(
+const formulaire2 = Form.slice(5, 9).map((item, index)=>(
   <>
   {item.text == "State" ? (
     <Dropdown key={index} icon={item.icon} text={item.text} list={States} fonction={handleChange}/>

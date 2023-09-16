@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import Select from 'react-select';
-
+// KEY
+import { v4 as uuidv4 } from "uuid";
+//
+//
+//
 export default function Dropdown({
     text,
     icon,
     list,
     fonction,
+    show,
 }) {
 //
 //
@@ -27,7 +31,12 @@ const handleBlur = () => {
 // SELECTION OPTION
 const handleOptionSelect = (option) => {
   setSelectedOption(option);
-  fonction(text, option)
+  if(show == true){
+    fonction(option.name) 
+  } else{
+    fonction(text.replace(/\s/g, '_').toLowerCase(), option) 
+  }
+   
   setIsOpen(false);
 };
 //
@@ -45,8 +54,8 @@ return (
     {isOpen && (
       <ul className="dropdownMenu">
             {
-             list.map((option, index) => (
-<li key={index} onClick={() => handleOptionSelect(option)}>
+             list.map((option) => (
+<li key={uuidv4()} onClick={() => handleOptionSelect(option)}>
 {option.name}
 </li>         
            ))}
@@ -57,53 +66,3 @@ return (
   </div>
 );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     const [selectedOption, setSelectedOption] = useState(''); 
-// //
-// //
-//     return (
-//       <div className="dorpdownBox">
-//         <select 
-//         value={selectedOption} 
-//         onChange={(e) => setSelectedOption(e.target.value)}>
-//           {
-//             list.map((option, index) => (
-
-//             <option 
-//             key={index} 
-//             value={option.abbreviation}
-//             >
-
-//               {option.name}
-
-//             </option>
-//           ))}
-//         </select>
-
-//         <span>{text}</span>
-//         <icon.icon />
-//       </div>
-//     );
-//}
