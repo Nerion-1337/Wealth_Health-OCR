@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import Search from "#/components/search";
 // REACT
 import { useState, useEffect } from "react";
+// KEY
+import { v4 as uuidv4 } from "uuid";
 //
 //
 //
@@ -39,15 +41,15 @@ setPage(1)
 //
 //BUILDER 
 //
-const Thead = Form.slice(0, 9).map((item, index)=>(
-<Sort key={index} text={item.text} active={active} fonction={setActive} />
+const Thead = Form.slice(0, 9).map((item)=>(
+<Sort key={uuidv4()} text={item.text} active={active} fonction={setActive} />
 ));
 const Tbody = (
   <>
   {(updateUser === null || Object.keys(updateUser).length === 0) ? (
     
- user.slice(ShowEntriesMIN, ShowEntriesMAX).map((item, index)=>(
-  <tr key={index}>
+ user.slice(ShowEntriesMIN, ShowEntriesMAX).map((item)=>(
+  <tr key={uuidv4()}>
 <th>{item.first_name}</th>
 <th>{item.last_name}</th>
 <th>{item.date_of_birth}</th>
@@ -61,8 +63,8 @@ const Tbody = (
 
 ) : (
   
-  updateUser.slice(ShowEntriesMIN, ShowEntriesMAX).map((item, index)=>(
-  <tr key={index}>
+  updateUser.slice(ShowEntriesMIN, ShowEntriesMAX).map((item)=>(
+  <tr key={uuidv4()}>
 <th>{item.first_name}</th>
 <th>{item.last_name}</th>
 <th>{item.date_of_birth}</th>
@@ -126,6 +128,13 @@ const previousPage = () =>{
       </tr>
     </thead>
     <tbody>
+    {user.length == 0 && 
+    <Typo 
+    balise="span" 
+    color="cb" 
+    size="s7" 
+    transform="maj"
+    children="There are no employees"/>}
       {Tbody}
     </tbody>
   </table>

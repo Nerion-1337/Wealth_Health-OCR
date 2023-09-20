@@ -4,6 +4,7 @@ import { Form, Departments, States } from "#/data/links";
 import Input from "#/components/build/input";
 import Typo from "#/components/build/global/typography";
 import Dropdown from "#/components/build/dropdown";
+import Modale from 'wealth_health_modale/src/index';
 // REACT
 import { useState } from "react";
 // REDUX
@@ -17,6 +18,7 @@ export default function Home() {
 // VARIABLE
 //
 const [formData, setFormData] = useState("");
+const [modaleState, setModaleState] = useState(false)
 //
 // FONCTION
 //
@@ -34,7 +36,8 @@ function getUserReducerState() {
 const handleSubmit = (e) =>{
   e.preventDefault();
 store.dispatch(postUser(formData));
-store.dispatch(getUser(getUserReducerState())); 
+store.dispatch(getUser(getUserReducerState()));
+setModaleState(true)
 }
 //
 // BUILDER
@@ -63,6 +66,11 @@ const formulaire2 = Form.slice(5, 9).map((item, index)=>(
 //
     return (
 <main className="home">
+<Modale 
+text="Employee Created"
+isOpen={modaleState}
+onClose={setModaleState}
+/>
 <form onSubmit={handleSubmit}>
 <Typo
   balise="div"
