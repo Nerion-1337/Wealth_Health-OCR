@@ -23,7 +23,7 @@ export default function Employee() {
 //
 const user = useSelector((state) => state.userReducer);
 const updateUser = useSelector((state) => state.updateReducer);
-const [active, setActive] = useState("");
+const [active, setActive] = useState();
 const [ShowEntries, setShowEntries] = useState(10);
 const [page, setPage] = useState(1);
 let numberOfElements = updateUser.length;
@@ -41,8 +41,8 @@ setPage(1)
 //
 //BUILDER 
 //
-const Thead = Form.slice(0, 9).map((item)=>(
-<Sort key={uuidv4()} text={item.text} active={active} fonction={setActive} />
+const Thead = Form.slice(0, 9).map((item, index)=>(
+<Sort key={index} text={item.text} active={active} fonction={setActive} />
 ));
 const Tbody = (
   <>
@@ -129,12 +129,17 @@ const previousPage = () =>{
     </thead>
     <tbody>
     {user.length == 0 && 
+    <tr>
     <Typo 
-    balise="span" 
+    balise="td" 
     color="cb" 
     size="s7" 
     transform="maj"
-    children="There are no employees"/>}
+    children="There are no employees"
+    className="emptyTable"  
+    />
+    </tr>
+    }
       {Tbody}
     </tbody>
   </table>

@@ -15,7 +15,7 @@ const [isAscending, setIsAscending] = useState(true);
 // FUNCTION
 //
 function tri(data){   
-//    
+//  
 const data_text = text.replace(/\s/g, '_').toLowerCase();
 const newData = [...data]
 //
@@ -48,19 +48,22 @@ if(text === "Department" || text === "State"){
           }
           return 0;
         });
-  //      
+  //
+        
   return newData;      
 }
 //
 function handleClick(){
 //
 const state = store.getState();
+const userData = state.userReducer;
+const updatedData = state.updateReducer
 //
-store.dispatch(postUserSec(tri(state.userReducer)));
-store.dispatch(getUser(tri(state.updateReducer)));
+store.dispatch(postUserSec(tri(userData)));
+store.dispatch(getUser(tri(updatedData)));
 //
+setIsAscending(!isAscending)
 fonction(text);
-setIsAscending(!isAscending) 
 }
 //
 //
